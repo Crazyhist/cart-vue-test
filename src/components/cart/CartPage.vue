@@ -1,0 +1,88 @@
+<template>
+	<div class="cart">
+		<div class="cart-header">
+			<h1 class="cart-header__title">
+				Ваша корзина
+				<span class="cart-header__count"
+					><span class="cart-header__count"
+						>{{ cartStore.cartCount }} {{ cartStore.cartCount }}</span
+					></span
+				>
+			</h1>
+			<button class="cart-header__clear" @click="cartStore.clearCart">
+				Очистить корзину
+			</button>
+		</div>
+		<div class="cart-content">
+			<CartList :items="cartStore.cartItems" @remove="cartStore.deleteItem" />
+			<CartSummary :total="cartStore.cartTotal" />
+		</div>
+	</div>
+</template>
+
+<script lang="ts">
+import CartList from '@/components/cart/CartList.vue'
+import CartSummary from '@/components/cart/CartSummary.vue'
+
+import { useCartStore } from '@/stores/cart'
+
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+	components: { CartList, CartSummary },
+	setup() {
+		const cartStore = useCartStore()
+		return { cartStore }
+	},
+})
+</script>
+
+<style scoped>
+.cart {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.cart-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	max-width: 800px;
+	width: 100%;
+	margin-bottom: 40px;
+}
+
+.cart-header__title {
+	font-size: 44px;
+	font-weight: bold;
+	color: #1f2432;
+	display: flex;
+	align-items: center;
+}
+
+.cart-header__count {
+	margin-left: 20px;
+	margin-top: 18px;
+	font-size: 18px;
+	color: #797b86;
+}
+
+.cart-header__clear {
+	background: none;
+	border: none;
+	color: #797b86;
+	font-size: 14px;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.cart-header__clear:hover {
+	color: #0056b3;
+}
+
+.cart-content {
+	display: flex;
+	max-width: 800px;
+	width: 100%;
+}
+</style>
