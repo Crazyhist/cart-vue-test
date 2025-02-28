@@ -24,8 +24,9 @@
 
 		<button
 			class="cart-summary__order-button cart-summary__order-button--primary"
+			@click="logCartItems"
 		>
-			Оформить заказ
+			Оплатить
 		</button>
 	</div>
 </template>
@@ -40,9 +41,14 @@ export default defineComponent({
 		const cartTotal = computed(() => cartStore.cartTotal)
 		const cartCount = computed(() => cartStore.cartCount)
 
+		const logCartItems = () => {
+			console.log(JSON.stringify(cartStore.cartItems, null, 2))
+		}
+
 		return {
 			cartTotal,
 			cartCount,
+			logCartItems,
 		}
 	},
 })
