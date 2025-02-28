@@ -94,4 +94,14 @@ export default defineComponent({
 	display: flex;
 	gap: 20px;
 }
+
+.cart-empty {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 200px;
+	font-size: 24px;
+	color: #797b86;
+	text-align: center;
+}
 </style>
