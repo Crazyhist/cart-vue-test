@@ -44,7 +44,7 @@ export default defineComponent({
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	padding: 20px;
+	padding: 20px 0;
 }
 
 .header-cart {

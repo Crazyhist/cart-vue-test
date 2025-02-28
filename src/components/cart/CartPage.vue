@@ -11,7 +11,7 @@
 				Очистить корзину
 			</button>
 		</div>
-		<div class="cart-content">
+		<div v-if="cartStore.cartCount > 0" class="cart-content">
 			<CartList
 				:items="cartStore.cartItems"
 				@addItem="cartStore.addItem"
@@ -19,6 +19,10 @@
 				@deleteItem="cartStore.deleteItem"
 			/>
 			<CartSummary :total="cartStore.cartTotal" :count="cartStore.cartCount" />
+		</div>
+
+		<div v-else class="cart-empty">
+			<p class="cart-empty__text">Корзина пуста</p>
 		</div>
 	</div>
 </template>
