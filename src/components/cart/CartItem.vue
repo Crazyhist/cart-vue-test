@@ -10,15 +10,25 @@
 			<p class="cart-item__description">{{ item.description }}</p>
 			<p class="cart-item__article">Артикул: {{ item.article }}</p>
 		</div>
+
 		<div class="cart-item__controls">
-			<button class="cart-item__button" @click="$emit('removeItem', item.id)">
-				-
-			</button>
-			<span class="cart-item__quantity">{{ item.count }}</span>
-			<button class="cart-item__button" @click="$emit('addItem', item.id)">
-				+
-			</button>
+			<div class="cart-item__buttons">
+				<button class="cart-item__button" @click="$emit('removeItem', item.id)">
+					-
+				</button>
+				<span
+					class="cart-item__quantity"
+					:data-count="item.count > 1 ? 'true' : 'false'"
+					:data-price="item.price.toLocaleString('ru-RU')"
+				>
+					{{ item.count }}
+				</span>
+				<button class="cart-item__button" @click="$emit('addItem', item.id)">
+					+
+				</button>
+			</div>
 		</div>
+
 		<p class="cart-item__price">
 			{{ (item.price * item.count).toLocaleString('ru-RU') }} ₽
 		</p>
@@ -88,8 +98,16 @@ export default {
 }
 
 .cart-item__controls {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.cart-item__buttons {
 	display: flex;
 	align-items: center;
+	gap: 4px;
 }
 
 .cart-item__button {
@@ -115,11 +133,26 @@ export default {
 }
 
 .cart-item__quantity {
+	text-align: center;
 	width: 30px;
 	height: 30px;
-	text-align: center;
 	background-color: #f6f8fa;
-	margin: 0px 2px;
+}
+
+.cart-item__quantity::after {
+	content: attr(data-price) ' ₽/шт.';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 12px;
+	margin-top: 8px;
+	white-space: nowrap;
+	visibility: hidden;
+}
+
+.cart-item__quantity[data-count='true']::after {
+	visibility: visible;
 }
 
 .cart-item__price {
@@ -130,7 +163,7 @@ export default {
 	text-align: right;
 }
 
-.cart-item__remove {
+.cart-ipricetem__remove {
 	position: absolute;
 	top: 20px;
 	right: 0;
