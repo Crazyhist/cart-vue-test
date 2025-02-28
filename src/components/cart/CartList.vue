@@ -4,9 +4,9 @@
 			v-for="item in items"
 			:key="item.id"
 			:item="item"
-			@update="$emit('update', item.id)"
-			@remove="$emit('remove', item.id)"
-			@delete="$emit('delete', item.id)"
+			@addItem="$emit('addItem', item.id)"
+			@removeItem="$emit('removeItem', item.id)"
+			@deleteItem="$emit('deleteItem', item.id)"
 		/>
 	</div>
 </template>
@@ -21,6 +21,7 @@ export default defineComponent({
 	props: {
 		items: Array as PropType<CartItemType[]>,
 	},
+	emits: ['addItem', 'removeItem', 'deleteItem'],
 })
 </script>
 

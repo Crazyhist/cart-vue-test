@@ -1,7 +1,7 @@
 <template>
 	<div class="cart-item">
 		<div class="cart-item__image">
-			<img :src="item.images[0]" alt="" />
+			<img :src="item.images" alt="" />
 		</div>
 		<div class="cart-item__info">
 			<p class="cart-item__name">
@@ -19,7 +19,9 @@
 				+
 			</button>
 		</div>
-		<p class="cart-item__price">{{ item.price * item.count }} ₽</p>
+		<p class="cart-item__price">
+			{{ (item.price * item.count).toLocaleString('ru-RU') }} ₽
+		</p>
 		<div class="cart-item__remove" @click="$emit('deleteItem', item.id)">
 			<img src="/close.svg" alt="close" />
 		</div>
@@ -37,6 +39,7 @@ export default {
 			required: true,
 		},
 	},
+	emits: ['addItem', 'removeItem', 'deleteItem'],
 }
 </script>
 
@@ -45,12 +48,14 @@ export default {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	width: 100%;
-	height: 100%;
-	max-width: 800px;
-	max-height: 120px;
-	border-bottom: 1px solid #c4c4c4;
 	position: relative;
+	padding: 20px 0;
+	max-width: 800px;
+	border-bottom: 1px solid #c4c4c4;
+}
+
+.cart-item:last-of-type {
+	border-bottom: none;
 }
 
 .cart-item__image {
@@ -65,7 +70,6 @@ export default {
 	gap: 6px;
 	font-size: 12px;
 	max-width: 263px;
-	margin-bottom: 23px;
 }
 
 .cart-item__name {
@@ -94,9 +98,16 @@ export default {
 	background-color: #f6f8fa;
 	border: none;
 	cursor: pointer;
-	border-radius: 4px;
 	transition: background-color 0.3s ease;
 	font-size: 16px;
+}
+
+.cart-item__button:first-of-type {
+	border-radius: 4px 0 0 4px;
+}
+
+.cart-item__button:last-of-type {
+	border-radius: 0 4px 4px 0;
 }
 
 .cart-item__button:hover {
@@ -104,12 +115,11 @@ export default {
 }
 
 .cart-item__quantity {
-	font-size: 16px;
 	width: 30px;
 	height: 30px;
 	text-align: center;
 	background-color: #f6f8fa;
-	margin: 0px 1px;
+	margin: 0px 2px;
 }
 
 .cart-item__price {
@@ -122,7 +132,7 @@ export default {
 
 .cart-item__remove {
 	position: absolute;
-	top: 0;
+	top: 20px;
 	right: 0;
 	cursor: pointer;
 }

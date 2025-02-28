@@ -5,7 +5,7 @@
 		<div class="cart-summary__details">
 			<p class="cart-summary__line">
 				<span>Сумма заказа</span>
-				<span>{{ cartTotal }} ₽</span>
+				<span>{{ cartTotal.toLocaleString('ru-RU') }} ₽</span>
 			</p>
 			<p class="cart-summary__line">
 				<span>Количество</span>
@@ -18,7 +18,7 @@
 		<div class="cart-summary__total">
 			<span>Стоимость товаров</span>
 			<span class="cart-summary__total-price"
-				><b>{{ cartTotal }} ₽</b></span
+				><b>{{ cartTotal.toLocaleString('ru-RU') }} ₽</b></span
 			>
 		</div>
 
@@ -31,21 +31,28 @@
 </template>
 
 <script lang="ts">
-export default {
-	props: {
-		cartTotal: Number,
-		cartCount: Number,
+import { useCartStore } from '@/stores/cart'
+import { computed, defineComponent } from 'vue'
+
+export default defineComponent({
+	setup() {
+		const cartStore = useCartStore()
+		const cartTotal = computed(() => cartStore.cartTotal)
+		const cartCount = computed(() => cartStore.cartCount)
+
+		return {
+			cartTotal,
+			cartCount,
+		}
 	},
-}
+})
 </script>
 
 <style scoped>
 .cart-summary {
 	max-width: 425px;
 	width: 100%;
-	height: 458px;
-	font-size: 20px;
-	font-weight: 600;
+	height: 100%;
 	background-color: #f6f8fa;
 	padding: 35px 30px;
 	border-radius: 5px;
@@ -59,7 +66,7 @@ export default {
 }
 
 .cart-summary__details {
-	margin-bottom: 20px;
+	margin-bottom: 68px;
 }
 
 .cart-summary__details p span {

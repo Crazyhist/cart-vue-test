@@ -24,7 +24,7 @@ const initialState: CartState = {
 			article: 'G2H1065',
 			count: 1,
 			price: 2256,
-			images: '',
+			images: '/products/hammer.png',
 		},
 		{
 			id: 2,
@@ -34,7 +34,7 @@ const initialState: CartState = {
 			article: 'G2H1066',
 			count: 2,
 			price: 1200,
-			images: '',
+			images: '/products/nails.png',
 		},
 		{
 			id: 3,
@@ -43,7 +43,7 @@ const initialState: CartState = {
 			article: 'G2H1067',
 			count: 1,
 			price: 6500,
-			images: '',
+			images: '/products/timber.png',
 		},
 	],
 }

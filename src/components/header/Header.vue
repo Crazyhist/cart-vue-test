@@ -4,8 +4,10 @@
 			<img src="/cart-icon.svg" alt="Корзина" class="header-cart__icon" />
 			<div class="header-cart__info">
 				<p class="header-cart__text">Ваша корзина</p>
-				<p class="header-cart__details">{{ cartCount }} {{ cartCount }}</p>
-				<p class="header-cart__price">{{ cartTotal }} ₽</p>
+				<p class="header-cart__details">{{ cartCount }}</p>
+				<p class="header-cart__price">
+					{{ cartTotal.toLocaleString('ru-RU') }} ₽
+				</p>
 			</div>
 		</div>
 	</header>
@@ -46,8 +48,8 @@ export default defineComponent({
 }
 
 .header-cart__icon {
-	width: 24px;
-	height: 24px;
+	width: 32px;
+	height: 32px;
 }
 
 .header-cart__info {
@@ -67,7 +69,6 @@ export default defineComponent({
 
 .header-cart__price {
 	font-size: 12px;
-	font-weight: bold;
 	color: #1f2432;
 }
 </style>

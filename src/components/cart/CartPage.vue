@@ -5,7 +5,7 @@
 				Ваша корзина
 				<span class="cart-header__count"
 					><span class="cart-header__count"
-						>{{ cartStore.cartCount }} {{ cartStore.cartCount }}</span
+						>{{ cartStore.cartCount }} шт</span
 					></span
 				>
 			</h1>
@@ -14,8 +14,13 @@
 			</button>
 		</div>
 		<div class="cart-content">
-			<CartList :items="cartStore.cartItems" @remove="cartStore.deleteItem" />
-			<CartSummary :total="cartStore.cartTotal" />
+			<CartList
+				:items="cartStore.cartItems"
+				@addItem="cartStore.addItem"
+				@removeItem="cartStore.removeItem"
+				@deleteItem="cartStore.deleteItem"
+			/>
+			<CartSummary :total="cartStore.cartTotal" :count="cartStore.cartCount" />
 		</div>
 	</div>
 </template>
@@ -41,7 +46,6 @@ export default defineComponent({
 .cart {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 }
 .cart-header {
 	display: flex;
@@ -49,7 +53,7 @@ export default defineComponent({
 	align-items: baseline;
 	max-width: 800px;
 	width: 100%;
-	margin-bottom: 40px;
+	margin-bottom: 50px;
 }
 
 .cart-header__title {
@@ -57,12 +61,11 @@ export default defineComponent({
 	font-weight: bold;
 	color: #1f2432;
 	display: flex;
-	align-items: center;
+	align-items: baseline;
 }
 
 .cart-header__count {
-	margin-left: 20px;
-	margin-top: 18px;
+	margin-left: 22px;
 	font-size: 18px;
 	color: #797b86;
 }
@@ -82,7 +85,6 @@ export default defineComponent({
 
 .cart-content {
 	display: flex;
-	max-width: 800px;
-	width: 100%;
+	gap: 20px;
 }
 </style>

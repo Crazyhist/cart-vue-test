@@ -9,6 +9,7 @@ import Header from './components/header/Header.vue'
 		<div class="contentContainer">
 			<CartPage />
 		</div>
+		<footer></footer>
 	</div>
 </template>
 
@@ -16,9 +17,8 @@ import Header from './components/header/Header.vue'
 .container {
 	display: flex;
 	flex-direction: column;
-	min-height: 100vh;
-	max-width: 100vw;
-	background-color: rgb(150, 142, 142);
+	/* max-width: 1480px; */
+	padding: 0 20px;
 	margin: 0 auto;
 }
 .contentContainer {
