@@ -4,7 +4,7 @@
 			<img src="/cart-icon.svg" alt="Корзина" class="header-cart__icon" />
 			<div class="header-cart__info">
 				<p class="header-cart__text">Ваша корзина</p>
-				<p class="header-cart__details">{{ cartCount }}</p>
+				<p class="header-cart__details">{{ cartItemsText }}</p>
 				<p class="header-cart__price">
 					{{ cartTotal.toLocaleString('ru-RU') }} ₽
 				</p>
@@ -15,7 +15,10 @@
 
 <script lang="ts">
 import { useCartStore } from '@/stores/cart'
+
 import { computed, defineComponent } from 'vue'
+
+import { pluralizeProduct } from '@/utils/pluralizeProduct'
 
 export default defineComponent({
 	name: 'HeaderCart',
@@ -25,9 +28,12 @@ export default defineComponent({
 		const cartCount = computed(() => cartStore.cartCount)
 		const cartTotal = computed(() => cartStore.cartTotal)
 
+		const cartItemsText = computed(() => pluralizeProduct(cartCount.value))
+
 		return {
 			cartCount,
 			cartTotal,
+			cartItemsText,
 		}
 	},
 })

@@ -16,7 +16,7 @@
 		<hr class="cart-summary__divider" />
 
 		<div class="cart-summary__total">
-			<span>Стоимость товаров</span>
+			<span>Стоимость {{ cartItemsText }}</span>
 			<span class="cart-summary__total-price"
 				><b>{{ cartTotal.toLocaleString('ru-RU') }} ₽</b></span
 			>
@@ -33,13 +33,18 @@
 
 <script lang="ts">
 import { useCartStore } from '@/stores/cart'
+
 import { computed, defineComponent } from 'vue'
+
+import { pluralizeProduct } from '@/utils/pluralizeProduct'
 
 export default defineComponent({
 	setup() {
 		const cartStore = useCartStore()
 		const cartTotal = computed(() => cartStore.cartTotal)
 		const cartCount = computed(() => cartStore.cartCount)
+
+		const cartItemsText = computed(() => pluralizeProduct(cartCount.value))
 
 		const logCartItems = () => {
 			console.log(JSON.stringify(cartStore.cartItems, null, 2))
@@ -49,6 +54,7 @@ export default defineComponent({
 			cartTotal,
 			cartCount,
 			logCartItems,
+			cartItemsText,
 		}
 	},
 })

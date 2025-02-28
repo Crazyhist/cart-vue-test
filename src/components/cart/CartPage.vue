@@ -4,9 +4,7 @@
 			<h1 class="cart-header__title">
 				Ваша корзина
 				<span class="cart-header__count"
-					><span class="cart-header__count"
-						>{{ cartStore.cartCount }} шт</span
-					></span
+					><span class="cart-header__count">{{ cartItemsText }}</span></span
 				>
 			</h1>
 			<button class="cart-header__clear" @click="cartStore.clearCart">
@@ -30,14 +28,19 @@ import CartList from '@/components/cart/CartList.vue'
 import CartSummary from '@/components/cart/CartSummary.vue'
 
 import { useCartStore } from '@/stores/cart'
+import { pluralizeProduct } from '@/utils/pluralizeProduct'
 
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 
 export default defineComponent({
 	components: { CartList, CartSummary },
 	setup() {
 		const cartStore = useCartStore()
-		return { cartStore }
+
+		const cartCount = computed(() => cartStore.cartCount)
+		const cartItemsText = computed(() => pluralizeProduct(cartCount.value))
+
+		return { cartStore, cartItemsText }
 	},
 })
 </script>
